@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SfiHdiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="countryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HDI">
+          <Key>
+            <PropertyRef Name="hdiID" />
+          </Key>
+          <Property Name="hdiID" Type="int" Nullable="false" />
+          <Property Name="countryID" Type="int" Nullable="false" />
+          <Property Name="hdiScore" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Indicator">
+          <Key>
+            <PropertyRef Name="indicatorsID" />
+          </Key>
+          <Property Name="indicatorsID" Type="int" Nullable="false" />
+          <Property Name="sfiID" Type="int" Nullable="false" />
+          <Property Name="sfiTotal" Type="float" Nullable="false" />
+          <Property Name="sfiSec" Type="float" Nullable="false" />
+          <Property Name="sfiFaction" Type="float" Nullable="false" />
+          <Property Name="sfiGgriev" Type="float" Nullable="false" />
+          <Property Name="sfiEcon" Type="float" Nullable="false" />
+          <Property Name="sfiEcIneq" Type="float" Nullable="false" />
+          <Property Name="sfihFlight" Type="float" Nullable="false" />
+          <Property Name="sfisLegit" Type="float" Nullable="false" />
+          <Property Name="sfiPub" Type="float" Nullable="false" />
+          <Property Name="sfiRights" Type="float" Nullable="false" />
+          <Property Name="sfiDem" Type="float" Nullable="false" />
+          <Property Name="sfiRef" Type="float" Nullable="false" />
+          <Property Name="sfiExtInt" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SFI">
+          <Key>
+            <PropertyRef Name="sfiID" />
+          </Key>
+          <Property Name="sfiID" Type="int" Nullable="false" />
+          <Property Name="countryID" Type="int" Nullable="false" />
+          <Property Name="sfiTotal" Type="float" Nullable="false" />
+          <Property Name="indicatorsID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_HDI_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="HDI" Type="Self.HDI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="HDI">
+              <PropertyRef Name="countryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SFI_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="SFI" Type="Self.SFI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="SFI">
+              <PropertyRef Name="countryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SFI_Indicator">
+          <End Role="Indicator" Type="Self.Indicator" Multiplicity="1" />
+          <End Role="SFI" Type="Self.SFI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Indicator">
+              <PropertyRef Name="indicatorsID" />
+            </Principal>
+            <Dependent Role="SFI">
+              <PropertyRef Name="indicatorsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SfiHdiModelStoreContainer">
+          <EntitySet Name="Country" EntityType="Self.Country" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HDI" EntityType="Self.HDI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Indicator" EntityType="Self.Indicator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SFI" EntityType="Self.SFI" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_HDI_Country" Association="Self.FK_HDI_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="HDI" EntitySet="HDI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SFI_Country" Association="Self.FK_SFI_Country">
+            <End Role="Country" EntitySet="Country" />
+            <End Role="SFI" EntitySet="SFI" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SFI_Indicator" Association="Self.FK_SFI_Indicator">
+            <End Role="Indicator" EntitySet="Indicator" />
+            <End Role="SFI" EntitySet="SFI" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SfiHdiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Country">
+          <Key>
+            <PropertyRef Name="CountryID" />
+          </Key>
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="countryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="HDIs" Relationship="Self.FK_HDI_Country" FromRole="Country" ToRole="HDI" />
+          <NavigationProperty Name="SFIs" Relationship="Self.FK_SFI_Country" FromRole="Country" ToRole="SFI" />
+        </EntityType>
+        <EntityType Name="HDI">
+          <Key>
+            <PropertyRef Name="hdiID" />
+          </Key>
+          <Property Name="hdiID" Type="Int32" Nullable="false" />
+          <Property Name="countryID" Type="Int32" Nullable="false" />
+          <Property Name="hdiScore" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_HDI_Country" FromRole="HDI" ToRole="Country" />
+        </EntityType>
+        <EntityType Name="Indicator">
+          <Key>
+            <PropertyRef Name="indicatorsID" />
+          </Key>
+          <Property Name="indicatorsID" Type="Int32" Nullable="false" />
+          <Property Name="sfiID" Type="Int32" Nullable="false" />
+          <Property Name="sfiTotal" Type="Double" Nullable="false" />
+          <Property Name="sfiSec" Type="Double" Nullable="false" />
+          <Property Name="sfiFaction" Type="Double" Nullable="false" />
+          <Property Name="sfiGgriev" Type="Double" Nullable="false" />
+          <Property Name="sfiEcon" Type="Double" Nullable="false" />
+          <Property Name="sfiEcIneq" Type="Double" Nullable="false" />
+          <Property Name="sfihFlight" Type="Double" Nullable="false" />
+          <Property Name="sfisLegit" Type="Double" Nullable="false" />
+          <Property Name="sfiPub" Type="Double" Nullable="false" />
+          <Property Name="sfiRights" Type="Double" Nullable="false" />
+          <Property Name="sfiDem" Type="Double" Nullable="false" />
+          <Property Name="sfiRef" Type="Double" Nullable="false" />
+          <Property Name="sfiExtInt" Type="Double" Nullable="false" />
+          <NavigationProperty Name="SFIs" Relationship="Self.FK_SFI_Indicator" FromRole="Indicator" ToRole="SFI" />
+        </EntityType>
+        <EntityType Name="SFI">
+          <Key>
+            <PropertyRef Name="sfiID" />
+          </Key>
+          <Property Name="sfiID" Type="Int32" Nullable="false" />
+          <Property Name="countryID" Type="Int32" Nullable="false" />
+          <Property Name="sfiTotal" Type="Double" Nullable="false" />
+          <Property Name="indicatorsID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Country" Relationship="Self.FK_SFI_Country" FromRole="SFI" ToRole="Country" />
+          <NavigationProperty Name="Indicator" Relationship="Self.FK_SFI_Indicator" FromRole="SFI" ToRole="Indicator" />
+        </EntityType>
+        <Association Name="FK_HDI_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="HDI" Type="Self.HDI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="HDI">
+              <PropertyRef Name="countryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SFI_Country">
+          <End Role="Country" Type="Self.Country" Multiplicity="1" />
+          <End Role="SFI" Type="Self.SFI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Country">
+              <PropertyRef Name="CountryID" />
+            </Principal>
+            <Dependent Role="SFI">
+              <PropertyRef Name="countryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SFI_Indicator">
+          <End Role="Indicator" Type="Self.Indicator" Multiplicity="1" />
+          <End Role="SFI" Type="Self.SFI" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Indicator">
+              <PropertyRef Name="indicatorsID" />
+            </Principal>
+            <Dependent Role="SFI">
+              <PropertyRef Name="indicatorsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SfiHdiEntitiesConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="HDIs" EntityType="Self.HDI" />
+          <EntitySet Name="Indicators" EntityType="Self.Indicator" />
+          <EntitySet Name="SFIs" EntityType="Self.SFI" />
+          <AssociationSet Name="FK_HDI_Country" Association="Self.FK_HDI_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="HDI" EntitySet="HDIs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SFI_Country" Association="Self.FK_SFI_Country">
+            <End Role="Country" EntitySet="Countries" />
+            <End Role="SFI" EntitySet="SFIs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SFI_Indicator" Association="Self.FK_SFI_Indicator">
+            <End Role="Indicator" EntitySet="Indicators" />
+            <End Role="SFI" EntitySet="SFIs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SfiHdiModelStoreContainer" CdmEntityContainer="SfiHdiEntitiesConnection">
+          <EntitySetMapping Name="Countries">
+            <EntityTypeMapping TypeName="SfiHdiModel.Country">
+              <MappingFragment StoreEntitySet="Country">
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="countryName" ColumnName="countryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HDIs">
+            <EntityTypeMapping TypeName="SfiHdiModel.HDI">
+              <MappingFragment StoreEntitySet="HDI">
+                <ScalarProperty Name="hdiID" ColumnName="hdiID" />
+                <ScalarProperty Name="countryID" ColumnName="countryID" />
+                <ScalarProperty Name="hdiScore" ColumnName="hdiScore" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Indicators">
+            <EntityTypeMapping TypeName="SfiHdiModel.Indicator">
+              <MappingFragment StoreEntitySet="Indicator">
+                <ScalarProperty Name="indicatorsID" ColumnName="indicatorsID" />
+                <ScalarProperty Name="sfiID" ColumnName="sfiID" />
+                <ScalarProperty Name="sfiTotal" ColumnName="sfiTotal" />
+                <ScalarProperty Name="sfiSec" ColumnName="sfiSec" />
+                <ScalarProperty Name="sfiFaction" ColumnName="sfiFaction" />
+                <ScalarProperty Name="sfiGgriev" ColumnName="sfiGgriev" />
+                <ScalarProperty Name="sfiEcon" ColumnName="sfiEcon" />
+                <ScalarProperty Name="sfiEcIneq" ColumnName="sfiEcIneq" />
+                <ScalarProperty Name="sfihFlight" ColumnName="sfihFlight" />
+                <ScalarProperty Name="sfisLegit" ColumnName="sfisLegit" />
+                <ScalarProperty Name="sfiPub" ColumnName="sfiPub" />
+                <ScalarProperty Name="sfiRights" ColumnName="sfiRights" />
+                <ScalarProperty Name="sfiDem" ColumnName="sfiDem" />
+                <ScalarProperty Name="sfiRef" ColumnName="sfiRef" />
+                <ScalarProperty Name="sfiExtInt" ColumnName="sfiExtInt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SFIs">
+            <EntityTypeMapping TypeName="SfiHdiModel.SFI">
+              <MappingFragment StoreEntitySet="SFI">
+                <ScalarProperty Name="sfiID" ColumnName="sfiID" />
+                <ScalarProperty Name="countryID" ColumnName="countryID" />
+                <ScalarProperty Name="sfiTotal" ColumnName="sfiTotal" />
+                <ScalarProperty Name="indicatorsID" ColumnName="indicatorsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
