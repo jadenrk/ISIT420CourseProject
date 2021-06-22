@@ -1,15 +1,18 @@
 ﻿
 var uri = 'api/Data';
 
+var indicatorsArray = [""];
+
 $(document).ready(function () {
     GetCountryDropdown();
+    GetIndicatorsDropdowns();
     //GetStoreDropdown();
 });
 
 // populating the drpdown for q1
 function GetCountryDropdown() {
     $.getJSON('api/Q1')
-        .done(function (data) {
+        .done(function (data) {0
             // On success, 'data' contains a list of products.
             $.each(data, function (key, item) {
                 // Add a list item for the product.
@@ -19,27 +22,16 @@ function GetCountryDropdown() {
         });
 }
 
-// populating the dropdown for q2 and 3?
-function GetIndicatorsDropdownOne () {
-    $.getJSON('api/Q2')
+// populating the dropdown for q2 and q3
+function GetIndicatorsDropdowns() {
+    $.getJSON('api/Data')
         .done(function (data) {
             // On success, 'data' contains a list of products.
             $.each(data, function (key, item) {
                 // Add a list item for the product.
                 // THIS LINE NEEDS EDITING
-                //$('<option id=' + item.dtoStoreID + '>' + item.dtoCity + '</option>').appendTo($('#indicatorDropdownOne'));
-            });
-        });
-}
-
-function GetIndicatorsDropdownTwo() {
-    $.getJSON('api/Q3')
-        .done(function (data) {
-            // On success, 'data' contains a list of products.
-            $.each(data, function (key, item) {
-                // Add a list item for the product.
-                // THIS LINE NEEDS EDITING
-                //$('<option id=' + item.dtoStoreID + '>' + item.dtoCity + '</option>').appendTo($('#indicatorDropdownTwo'));
+                $('<option id=a' + item + '>' + item + '</option>').appendTo($('#indicatorDropdownOne'));
+                $('<option id=b' + item + '>' + item + '</option>').appendTo($('#indicatorDropdownTwo'));
             });
         });
 }
@@ -50,7 +42,6 @@ function getCountryData() {
     var id = $('#countryDropdown option:selected').attr('id');
     $.getJSON('api/Q1/' + id)
         .done(function (data) {
-            console.log(data);
             //$('#thisCountryData').text($('#thisCountryData option:selected').text() );
             $('<h2>' + $('#countryDropdown option:selected').text() + '</h2><p>HDI Rank: ' + data.myHdiRank + ' | HDI Score: ' + data.myHdiScore + '</br>' +
                 'SFI Rank: ' + data.mySfiRank + ' | SFI Score: ' + data.mySfiScore + '</br >' + '</p>' + 
@@ -73,16 +64,12 @@ function getCountryData() {
         });
 }
 
-function getHdiData() {
-    
-}
-
 // return countries with good scores relevant to selected indicator
 function getStrongScoreCountries() {
+    $("#strongScoreCountries").empty();
     var id = $('#indicatorDropdownOne option:selected').attr('id'); // THIS LINE NEEDS EDITING
     $.getJSON('api/Q2/' + id)
         .done(function (data) {
-            console.log(data);
             $('#strongScoreCountries').text($('#indicatorDropdownOne option:selected').text() + ' sold $' + data + ' for the year. '); //THIS LINE NEEDS EDITING
         })
         .fail(function (jqXHR, textStatus, err) {
@@ -90,13 +77,18 @@ function getStrongScoreCountries() {
         });
 }
 
-// return countries with low scores relevant to selected indicator
+// return countries with bad scores relevant to selected indicator
 function getWeakScoreCountries() {
-    var id = $('#indicatorDropdownTwo option:selected').attr('id'); // THIS LINE NEEDS EDITING
+    $("#weakScoreCountries").empty();
+    var id = $('#indicatorDropdownTwo option:selected').text(); // THIS LINE NEEDS EDITING
     $.getJSON('api/Q3/' + id)
         .done(function (data) {
-            console.log(data);
-            $('#weakScoreCountries').text($('#indicatorDropdownTwo option:selected').text() + ' sold $' + data + ' for the year. '); //THIS LINE NEEDS EDITING
+            $.each(data, function (key, item) {
+                // Add a list item for the product.
+                // THIS LINE NEEDS EDITING
+                $('<span>' + item + '</span>').appendTo($('#weakScoreCountries'));
+            });
+            //$('#weakScoreCountries').text($(data)); //THIS LINE NEEDS EDITING
         })
         .fail(function (jqXHR, textStatus, err) {
             $('#weakScoreCountries').text('Error: ' + err);

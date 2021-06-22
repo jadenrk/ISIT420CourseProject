@@ -9,8 +9,30 @@ namespace JadeKhalid_Project.Controllers
 {
     public class DataController : ApiController
     {
-        SfiHdiEntitiesConnection myCollection = new SfiHdiEntitiesConnection();
+        public IHttpActionResult GetIndicators()
+        {
+            Type objType = typeof(DataController.IndicatorDto);
+            List<string> objTypeList = new List<string>();
+            List<string> abbrIndicators = new List<string>();
 
+            List<string> FullNameIndicators = new List<string>();
+            FullNameIndicators.Add("Security Apparatus");
+            FullNameIndicators.Add("Factionalized Elites");
+            FullNameIndicators.Add("Group Grievance");
+            FullNameIndicators.Add("Economy");
+            FullNameIndicators.Add("Economic Inequality");
+            FullNameIndicators.Add("Human Flight and Brain Drain");
+            FullNameIndicators.Add("State Legitimacy");
+            FullNameIndicators.Add("Public Services");
+            FullNameIndicators.Add("Human Rights");
+            FullNameIndicators.Add("Demographic Pressures");
+            FullNameIndicators.Add("Refugees and IDPs");
+            FullNameIndicators.Add("External Intervention");
+
+            return Json(FullNameIndicators);
+        }
+
+        // Data Transfer Objects to make parsing data easier
         public class CountryDto
         {
             public CountryDto(int pCountryID, string pCountryName)
@@ -90,6 +112,52 @@ namespace JadeKhalid_Project.Controllers
             public double dtoSfiRef { get; set; }
             public double dtoSfiExtInt { get; set; }
 
+        }
+
+        // Additional Classes for grouping data
+        public class RelatedData
+        {
+            public RelatedData(int rHdiID, double rHdiScore, int rSfiID, double rSfiTotal, double rSfiSec,
+                    double rSfiFaction, double rSfiGgriev, double rSfiEcon, double rSfiEcIneq, double rSfiHFlight,
+                    double rSfiSLegit, double rSfiPub, double rSfiRights, double rSfiDem, double rSfiRef, double rSfiExtInt)
+            {
+                myHdiRank = rHdiID;
+                myHdiScore = rHdiScore;
+
+                mySfiRank = rSfiID;
+                mySfiScore = rSfiTotal;
+
+                mySfiSec = rSfiSec;
+                mySfiFaction = rSfiFaction;
+                mySfiGgriev = rSfiGgriev;
+                mySfiEcon = rSfiEcon;
+                mySfiEcIneq = rSfiEcIneq;
+                mySfiHFlight = rSfiHFlight;
+                mySfiSLegit = rSfiSLegit;
+                mySfiPub = rSfiPub;
+                mySfiRights = rSfiRights;
+                mySfiDem = rSfiDem;
+                mySfiRef = rSfiRef;
+                mySfiExtInt = rSfiExtInt;
+            }
+            public int myHdiRank { get; set; }
+            public double myHdiScore { get; set; }
+
+            public int mySfiRank { get; set; }
+            public double mySfiScore { get; set; }
+
+            public double mySfiSec { get; set; }
+            public double mySfiFaction { get; set; }
+            public double mySfiGgriev { get; set; }
+            public double mySfiEcon { get; set; }
+            public double mySfiEcIneq { get; set; }
+            public double mySfiHFlight { get; set; }
+            public double mySfiSLegit { get; set; }
+            public double mySfiPub { get; set; }
+            public double mySfiRights { get; set; }
+            public double mySfiDem { get; set; }
+            public double mySfiRef { get; set; }
+            public double mySfiExtInt { get; set; }
         }
     }
 }
