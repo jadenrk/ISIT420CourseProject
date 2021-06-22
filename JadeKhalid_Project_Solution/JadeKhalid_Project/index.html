@@ -3,34 +3,34 @@
 <head>
     <meta charset="utf-8" />
     <title>ISIT420: Jade and Khalid's Course Project</title>
+    <link rel="stylesheet" href="Content/index.css">
     <script type="text/javascript" src="Scripts/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="Scripts/index.js"></script>
 </head>
 <body>
-    <div>
+    <div class="query">
         <h2>Query 1: What are all the scores for the selected country?</h2>
         <p>User inputs a country. Receives their HDI rank, FSI rank, and all indicators.</p>
-        <select id="countryDropdown"></select>
-        <input type="button" value="GetCountryData" onclick="getCountryData();" />
+        <select id="countryDropdown" class="custom-select"></select>
+        <input class="custom-button" type="button" value="GetCountryData" onclick="getCountryData();" />
         <ul id="thisCountryData" />
-        <br />
     </div>
 
-    <div>
+    <div class="query">
         <h2>Query 2: What countries have a strong score in the selected indicator?</h2>
             <p>User selects an indicator from a dropdown list. We get all the countries that have 
             an especially good score (lower is good, so 3 or lower?) in that indicator</p>
-        <select id="indicatorDropdownOne"></select> 
-        <input type="button" value="Get Strong-Scoring Countries" onclick="getStrongScoreCountries();" />
+        <select id="indicatorDropdownOne" class="custom-select"></select> 
+        <input class="custom-button" type="button" value="Get Strong-Scoring Countries" onclick="getStrongScoreCountries();" />
         <p id="strongScoreCountries" />
     </div>
 
-    <div>
+    <div class="query">
         <h2>Query 3: What countries have a weak score in the selected indicator?</h2>
         <p>User selects an indicator from a dropdown list. We get all the countries that have 
         an especially BAD score (higher is bad, so 7 or higher?) in that indicator </p>
-        <select id="indicatorDropdownTwo"></select>
-        <input type="button" value="Get Weak-Scoring Countries" onclick="getWeakScoreCountries();" />
+        <select id="indicatorDropdownTwo" class="custom-select"></select>
+        <input class="custom-button" type="button" value="Get Weak-Scoring Countries" onclick="getWeakScoreCountries();" />
         <p id="weakScoreCountries" />
     </div>
 </body>
