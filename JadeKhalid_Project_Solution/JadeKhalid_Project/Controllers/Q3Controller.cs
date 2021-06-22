@@ -12,7 +12,7 @@ namespace JadeKhalid_Project.Controllers
     {
         /* User selects an indicator from a dropdown list. We get 
          * all the countries that have an especially BAD score 
-         * (higher is bad, so 7 or higher?) in that indicator */
+         * (higher is bad, so 8 or higher?) in that indicator */
 
 
         SfiHdiEntitiesConnection myCollection = new SfiHdiEntitiesConnection();

@@ -33,8 +33,8 @@ function getCountryData() {
     var id = $('#countryDropdown option:selected').attr('id');
     $.getJSON('api/Q1/' + id)
         .done(function (data) {
-            $('<h2>' + $('#countryDropdown option:selected').text() + '</h2><p>HDI Rank: ' + data.myHdiRank + ' | HDI Score: ' + data.myHdiScore + '</br>' +
-                'SFI Rank: ' + data.mySfiRank + ' | SFI Score: ' + data.mySfiScore + '</br >' + '</p>' + 
+            $('<div class="dataArea"><h3>' + $('#countryDropdown option:selected').text() + '</h3><p>HDI Rank: ' + data.myHdiRank + ' | HDI Score: ' + data.myHdiScore + '</br>' +
+                'FSI Rank: ' + data.mySfiRank + ' | FSI Score: ' + data.mySfiScore + '</br >' + '</p></div>' + 
                 '<h3>Indicators</h3> <ul> <li>Security Apparatus: ' + data.mySfiSec +
                 '</li> <li>Factionalized Elites: ' + data.mySfiFaction +
                 '</li> <li>Group Grievance: ' + data.mySfiGgriev +
