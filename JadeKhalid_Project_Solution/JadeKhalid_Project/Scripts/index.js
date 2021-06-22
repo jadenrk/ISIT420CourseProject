@@ -57,10 +57,12 @@ function getCountryData() {
 // return countries with good scores relevant to selected indicator
 function getStrongScoreCountries() {
     $("#strongScoreCountries").empty();
-    var id = $('#indicatorDropdownOne option:selected').attr('id');
+    var id = $('#indicatorDropdownOne option:selected').text;
     $.getJSON('api/Q2/' + id)
         .done(function (data) {
-            $('#strongScoreCountries').text($('#indicatorDropdownOne option:selected').text() + ' sold $' + data + ' for the year. ');
+            $.each(data, function (key, item) {
+                $('<span>' + item + '</span>').appendTo($('#strongScoreCountries'));
+            });
         })
         .fail(function (jqXHR, textStatus, err) {
             $('#strongScoreCountries').text('Error: ' + err);
