@@ -32,7 +32,8 @@ namespace JadeKhalid_Project.Controllers
                         mySfiIds.Add(ind.sfiID);
                     }
                 }
-            } else if (id == "Factionalized Elites")
+            }
+            else if (id == "Factionalized Elites")
             {
                 foreach (Indicator ind in myCollection.Indicators)
                 {
@@ -41,7 +42,8 @@ namespace JadeKhalid_Project.Controllers
                         mySfiIds.Add(ind.sfiID);
                     }
                 }
-            } else if (id == "Group Grievance")
+            }
+            else if (id == "Group Grievance")
             {
                 foreach (Indicator ind in myCollection.Indicators)
                 {

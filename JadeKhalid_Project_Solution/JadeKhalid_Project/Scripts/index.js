@@ -57,7 +57,7 @@ function getCountryData() {
 // return countries with good scores relevant to selected indicator
 function getStrongScoreCountries() {
     $("#strongScoreCountries").empty();
-    var id = $('#indicatorDropdownOne option:selected').text;
+    var id = $('#indicatorDropdownOne option:selected').text();
     $.getJSON('api/Q2/' + id)
         .done(function (data) {
             $.each(data, function (key, item) {
