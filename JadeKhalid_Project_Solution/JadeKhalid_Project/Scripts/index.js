@@ -1,22 +1,16 @@
 ﻿
 var uri = 'api/Data';
 
-var indicatorsArray = [""];
-
 $(document).ready(function () {
     GetCountryDropdown();
     GetIndicatorsDropdowns();
-    //GetStoreDropdown();
 });
 
 // populating the drpdown for q1
 function GetCountryDropdown() {
     $.getJSON('api/Q1')
         .done(function (data) {0
-            // On success, 'data' contains a list of products.
             $.each(data, function (key, item) {
-                // Add a list item for the product.
-                // THIS LINE NEEDS EDITING
                 $('<option id=' + item.dtoCountryID + '>' + item.dtoCountryName + '</option>').appendTo($('#countryDropdown'));
             });
         });
@@ -26,10 +20,7 @@ function GetCountryDropdown() {
 function GetIndicatorsDropdowns() {
     $.getJSON('api/Data')
         .done(function (data) {
-            // On success, 'data' contains a list of products.
             $.each(data, function (key, item) {
-                // Add a list item for the product.
-                // THIS LINE NEEDS EDITING
                 $('<option id=a' + item + '>' + item + '</option>').appendTo($('#indicatorDropdownOne'));
                 $('<option id=b' + item + '>' + item + '</option>').appendTo($('#indicatorDropdownTwo'));
             });
@@ -42,7 +33,6 @@ function getCountryData() {
     var id = $('#countryDropdown option:selected').attr('id');
     $.getJSON('api/Q1/' + id)
         .done(function (data) {
-            //$('#thisCountryData').text($('#thisCountryData option:selected').text() );
             $('<h2>' + $('#countryDropdown option:selected').text() + '</h2><p>HDI Rank: ' + data.myHdiRank + ' | HDI Score: ' + data.myHdiScore + '</br>' +
                 'SFI Rank: ' + data.mySfiRank + ' | SFI Score: ' + data.mySfiScore + '</br >' + '</p>' + 
                 '<h3>Indicators</h3> <ul> <li>Security Apparatus: ' + data.mySfiSec +
@@ -67,10 +57,10 @@ function getCountryData() {
 // return countries with good scores relevant to selected indicator
 function getStrongScoreCountries() {
     $("#strongScoreCountries").empty();
-    var id = $('#indicatorDropdownOne option:selected').attr('id'); // THIS LINE NEEDS EDITING
+    var id = $('#indicatorDropdownOne option:selected').attr('id');
     $.getJSON('api/Q2/' + id)
         .done(function (data) {
-            $('#strongScoreCountries').text($('#indicatorDropdownOne option:selected').text() + ' sold $' + data + ' for the year. '); //THIS LINE NEEDS EDITING
+            $('#strongScoreCountries').text($('#indicatorDropdownOne option:selected').text() + ' sold $' + data + ' for the year. ');
         })
         .fail(function (jqXHR, textStatus, err) {
             $('#strongScoreCountries').text('Error: ' + err);
@@ -80,15 +70,12 @@ function getStrongScoreCountries() {
 // return countries with bad scores relevant to selected indicator
 function getWeakScoreCountries() {
     $("#weakScoreCountries").empty();
-    var id = $('#indicatorDropdownTwo option:selected').text(); // THIS LINE NEEDS EDITING
+    var id = $('#indicatorDropdownTwo option:selected').text();
     $.getJSON('api/Q3/' + id)
         .done(function (data) {
             $.each(data, function (key, item) {
-                // Add a list item for the product.
-                // THIS LINE NEEDS EDITING
                 $('<span>' + item + '</span>').appendTo($('#weakScoreCountries'));
             });
-            //$('#weakScoreCountries').text($(data)); //THIS LINE NEEDS EDITING
         })
         .fail(function (jqXHR, textStatus, err) {
             $('#weakScoreCountries').text('Error: ' + err);

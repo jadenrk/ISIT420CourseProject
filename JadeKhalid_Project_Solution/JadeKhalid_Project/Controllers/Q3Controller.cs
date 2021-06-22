@@ -16,13 +16,6 @@ namespace JadeKhalid_Project.Controllers
 
 
         SfiHdiEntitiesConnection myCollection = new SfiHdiEntitiesConnection();
-        List<DataController.IndicatorDto> myIndicators = new List<DataController.IndicatorDto>();
-        List<DataController.SfiDto> mySfi = new List<DataController.SfiDto>();
-        List<DataController.CountryDto> myCountries = new List<DataController.CountryDto>();
-
-        //List<IndicatorNames> myIndicatorNames = new List<IndicatorNames>();
-
-        
 
         public IHttpActionResult GetCountriesWeakScore(string id)
         {
