@@ -8,30 +8,69 @@
     <script type="text/javascript" src="Scripts/index.js"></script>
 </head>
 <body>
+
+    <h1>ISIT420: Jade and Khalid's Course Project</h1>
+    <h2>Working With Data: Human Development Index And Fragile State Index</h2>
+
     <div class="query">
         <h2>Query 1: What are all the scores for the selected country?</h2>
-        <p>User inputs a country. Receives their HDI rank, FSI rank, and all indicators.</p>
+        <p>Select a country. You will see its HDI rank, FSI rank, and all indicators.</p>
         <select id="countryDropdown" class="custom-select"></select>
-        <input class="custom-button" type="button" value="GetCountryData" onclick="getCountryData();" />
+        <input class="custom-button" type="button" value="Get Country Data" onclick="getCountryData();" />
         <ul id="thisCountryData" />
     </div>
 
     <div class="query">
-        <h2>Query 2: What countries have a strong score in the selected indicator?</h2>
-            <p>User selects an indicator from a dropdown list. We get all the countries that have 
-            an especially good score (lower is good, so 3 or lower?) in that indicator</p>
-        <select id="indicatorDropdownOne" class="custom-select"></select> 
-        <input class="custom-button" type="button" value="Get Strong-Scoring Countries" onclick="getStrongScoreCountries();" />
+        <h2>Query 2: What countries are at lower risk in the selected indicator?</h2>
+        <p>
+            Select an indicator. You will see all the countries that have
+            an especially good in that indicator.
+        </p>
+        <select id="indicatorDropdownOne" class="custom-select"></select>
+        <input class="custom-button" type="button" value="Get Low-Risk Countries" onclick="getStrongScoreCountries();" />
         <p id="strongScoreCountries" />
     </div>
 
     <div class="query">
-        <h2>Query 3: What countries have a weak score in the selected indicator?</h2>
-        <p>User selects an indicator from a dropdown list. We get all the countries that have 
-        an especially BAD score (higher is bad, so 7 or higher?) in that indicator </p>
+        <h2>Query 3: What countries are at higher risk in the selected indicator?</h2>
+        <p>
+            Select an indicator. You will see all the countries that have
+            an especially bad score in that indicator.
+        </p>
         <select id="indicatorDropdownTwo" class="custom-select"></select>
-        <input class="custom-button" type="button" value="Get Weak-Scoring Countries" onclick="getWeakScoreCountries();" />
+        <input class="custom-button" type="button" value="Get High-Risk Countries" onclick="getWeakScoreCountries();" />
         <p id="weakScoreCountries" />
+    </div>
+
+
+    <div class="info">
+        <div id="hdiInfo">
+            <h3>What is the Human Development Index?</h3>
+            <p>
+                "A composite index measuring average achievement in three basic dimensions
+                of human development—a long and healthy life, knowledge and a decent standard
+                of living."<br />
+                           <i>— United Nations Development Programme | Human Development Reports</i>
+            </p>
+            <ul>
+                <li><a href="http://hdr.undp.org/en">Human Development Reports | Main Page</a></li>
+                <li><a href="http://hdr.undp.org/en/indicators/137506">Data Source</a></li>
+            </ul>
+        </div>
+        <div id="sfiInfo">
+            <h3>What is the Fragile State Index?</h3>
+            <p>
+                "The Fragile States Index is based on a conflict assessment framework – known as
+                “CAST” – designed to measure the vulnerability of states to collapse. It is a
+                composite index of 12 indicators."<br />
+                <i>— United Nations Development Programme | Human Development Reports</i>
+            </p>
+            <ul>
+                <li><a href="https://fragilestatesindex.org/">Fragile States Index | Main Page</a></li>
+                <li><a href="https://fragilestatesindex.org/excel/">Data Source</a></li>
+                <li><a href="https://fragilestatesindex.org/indicators/">The Indicators</a></li>
+            </ul>
+        </div>
     </div>
 </body>
 </html>
